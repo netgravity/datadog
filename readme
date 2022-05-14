@@ -1,0 +1,55 @@
+
+
+
+## Usage: RUn the script with the first argument as the clinet name. This will create monitors by name and tag with all and client:{the argument passed in}.
+Optionally pass in the end time based on how long you want the downtime to be active starting form now. If no value passed it will default to 4 hrs
+
+sunny@debby:~/Projects/datadog$ ./schedule_downtime.py home                                                                                                                     
+{'active': True,                                                                                                                                                                
+ 'canceled': None,                                                                                                                                                              
+ 'child_id': None,              
+ 'created': 1652482203,
+ 'creator_id': 3615249,
+ 'disabled': False,
+ 'downtime_type': 2,
+ 'end': 1652489402,
+ 'id': 1947917186,
+ 'message': 'Example-Schedule_a_downtime_returns_OK_response',
+ 'modified': 1652482203,
+ 'monitor_id': None,
+ 'monitor_tags': ['*'],
+ 'mute_first_recovery_notification': False,
+ 'org_id': 647497,
+ 'parent_id': None,
+ 'recurrence': None,
+ 'scope': ['client:home'],
+ 'start': 1652482202,
+ 'timezone': 'Pacific/Auckland',
+ 'updater_id': None}
+{'active': True,
+ 'canceled': None,
+ 'child_id': None,
+ 'created': 1652482204,
+ 'creator_id': 3615249,
+ 'disabled': False,
+ 'downtime_type': 0,
+
+## with downtime set to 5 hours
+
+sunny@debby:~/Projects/datadog$ ./schedule_downtime.py home 5
+{'active': True,                
+ 'canceled': None,              
+ 'child_id': None,              
+ 'created': 1652484831
+
+
+
+# Best to run the shell script
+## Run the shell script with parameters , fisrst being the client tag and second optional
+## hours, if none specified then i will default to 4 hours.
+
+sunny@debby:~/Projects/datadog$ ./schedule_downtime.sh home 5                            
+command passed
+sunny@debby:~/Projects/datadog$ ./schedule_downtime.sh home
+command passed
+

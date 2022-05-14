@@ -1,0 +1,96 @@
+## using datadog-api-client
+pip3 install datadog-api-client
+
+
+DD_SITE="datadoghq.com" DD_API_KEY="" DD_APP_KEY="" python3 "example2.py"
+
+## using datadog client
+pip install datadog
+python3 senddata.py
+
+
+## get scheduled downtime
+sunny@debby:~/Projects/datadog$ DD_SITE="datadoghq.com" DD_API_KEY="" DD_APP_KEY="" python3 "get_monitors.py"
+[{'active': True,
+ 'canceled': None,
+ 'child_id': None,
+ 'created': 1652429742,
+ 'creator_id': 3615249,
+ 'disabled': False,
+ 'downtime_type': 0,
+ 'end': 1652442793,
+ 'id': 1946458438,
+ 'message': 'CR32323',
+ 'modified': 1652429742,
+ 'monitor_id': None,
+ 'monitor_tags': ['project:monitortest'],
+ 'mute_first_recovery_notification': False,
+ 'org_id': 647497,
+ 'parent_id': None,
+ 'recurrence': None,
+ 'scope': ['*'],
+ 'start': 1652429715,
+ 'timezone': 'Pacific/Auckland',
+ 'updater_id': None}]
+
+## this was for by monitor name
+
+'disabled': False,
+ 'downtime_type': 2,
+ 'end': 1652439006,
+ 'id': 1946680884,
+ 'message': 'this is by monitor name',
+ 'modified': 1652438361,
+ 'monitor_id': None,
+ 'monitor_tags': ['*'],
+ 'mute_first_recovery_notification': False,
+ 'org_id': 647497,
+ 'parent_id': None,
+ 'recurrence': None,
+ 'scope': ['client:home'],
+ 'start': 1652438304,
+ 'timezone': 'Pacific/Auckland',
+ 'updater_id': None}]
+
+
+
+
+
+## Script that worked to create schedule downtime for 2 hrs from now for a given monitpr tag
+sunny@debby:~/Projects/datadog$ cat create_downtime.py
+"""
+Schedule a downtime returns "OK" response
+"""
+
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
+from datadog_api_client.v1 import ApiClient, Configuration
+from datadog_api_client.v1.api.downtimes_api import DowntimesApi
+from datadog_api_client.v1.model.downtime import Downtime
+from datadog_api_client.v1.model.downtime_recurrence import DowntimeRecurrence
+
+body = Downtime(
+    message="Example-Schedule_a_downtime_returns_OK_response",
+    start=int(datetime.now().timestamp()),
+    end=int((datetime.now() + relativedelta(hours=2)).timestamp()),
+    timezone="Pacific/Auckland",
+    scope=[
+        "*",
+    ],
+    monitor_tags=[
+        "project:monitortest",
+    ],
+     #recurrence=DowntimeRecurrence(
+         #type="weeks",
+         #period=1,
+         #until_date=int((datetime.now() + relativedelta(days=21)).timestamp()),
+     #),
+)
+
+configuration = Configuration()
+with ApiClient(configuration) as api_client:
+    api_instance = DowntimesApi(api_client)
+    response = api_instance.create_downtime(body=body)
+
+    print(response)
+
