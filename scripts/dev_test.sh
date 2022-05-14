@@ -8,7 +8,7 @@
 
 echo "hello dev/test"
 
-
+# schedule downtime
 ./schedule_downtime.sh x1
 if [[ $? -ne 0 ]]; 
 then
