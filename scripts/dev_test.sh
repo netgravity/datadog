@@ -7,8 +7,23 @@
 # the down time script needs to be run for each env seperately
 
 echo "hello dev/test"
+
+
 ./schedule_downtime.sh x1
+if [[ $? -ne 0 ]]; 
+then
+  echo "Datadog downtime failed on x1"
+  exit 1
+fi
+
 ./schedule_downtime.sh x2
+if [[ $? -ne 0 ]]; 
+then
+  echo "Datadog downtime failed on x2"
+  exit 1
+fi
+
+
 
 # edit the yaml file before running the ansibel script
 # for prod group1 mke the hosts point to grp1_prod
