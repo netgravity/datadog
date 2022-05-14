@@ -2,7 +2,7 @@
 pip3 install datadog-api-client
 
 
-DD_SITE="datadoghq.com" DD_API_KEY="883ae4dae7ad2d1b57f46f56652153ec" DD_APP_KEY="890a39b62c285b830accffdc17daa2c4e3e1c9ab" python3 "example2.py"
+DD_SITE="datadoghq.com" DD_API_KEY="" DD_APP_KEY="" python3 "example2.py"
 
 ## using datadog client
 pip install datadog
@@ -10,7 +10,7 @@ python3 senddata.py
 
 
 ## get scheduled downtime
-sunny@debby:~/Projects/datadog$ DD_SITE="datadoghq.com" DD_API_KEY="883ae4dae7ad2d1b57f46f56652153ec" DD_APP_KEY="890a39b62c285b830accffdc17daa2c4e3e1c9ab" python3 "get_monitors.py"
+sunny@debby:~/Projects/datadog$ DD_SITE="datadoghq.com" DD_API_KEY="" DD_APP_KEY="" python3 "get_monitors.py"
 [{'active': True,
  'canceled': None,
  'child_id': None,
