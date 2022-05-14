@@ -1,46 +1,21 @@
-## using datadog-api-client
-pip3 install datadog-api-client
 
 
-DD_SITE="datadoghq.com" DD_API_KEY="" DD_APP_KEY="" python3 "example2.py"
 
-## using datadog client
-pip install datadog
-python3 senddata.py
+## Usage: RUn the script with the first argument as the clinet name. This will create monitors by name and tag with all and client:{the argument passed in}.
+Optionally pass in the end time based on how long you want the downtime to be active starting form now. If no value passed it will default to 4 hrs
 
-
-## get scheduled downtime
-sunny@debby:~/Projects/datadog$ DD_SITE="datadoghq.com" DD_API_KEY="" DD_APP_KEY="" python3 "get_monitors.py"
-[{'active': True,
- 'canceled': None,
- 'child_id': None,
- 'created': 1652429742,
+sunny@debby:~/Projects/datadog$ ./schedule_downtime.py home                                                                                                                     
+{'active': True,                                                                                                                                                                
+ 'canceled': None,                                                                                                                                                              
+ 'child_id': None,              
+ 'created': 1652482203,
  'creator_id': 3615249,
  'disabled': False,
- 'downtime_type': 0,
- 'end': 1652442793,
- 'id': 1946458438,
- 'message': 'CR32323',
- 'modified': 1652429742,
- 'monitor_id': None,
- 'monitor_tags': ['project:monitortest'],
- 'mute_first_recovery_notification': False,
- 'org_id': 647497,
- 'parent_id': None,
- 'recurrence': None,
- 'scope': ['*'],
- 'start': 1652429715,
- 'timezone': 'Pacific/Auckland',
- 'updater_id': None}]
-
-## this was for by monitor name
-
-'disabled': False,
  'downtime_type': 2,
- 'end': 1652439006,
- 'id': 1946680884,
- 'message': 'this is by monitor name',
- 'modified': 1652438361,
+ 'end': 1652489402,
+ 'id': 1947917186,
+ 'message': 'Example-Schedule_a_downtime_returns_OK_response',
+ 'modified': 1652482203,
  'monitor_id': None,
  'monitor_tags': ['*'],
  'mute_first_recovery_notification': False,
@@ -48,49 +23,33 @@ sunny@debby:~/Projects/datadog$ DD_SITE="datadoghq.com" DD_API_KEY="" DD_APP_KEY
  'parent_id': None,
  'recurrence': None,
  'scope': ['client:home'],
- 'start': 1652438304,
+ 'start': 1652482202,
  'timezone': 'Pacific/Auckland',
- 'updater_id': None}]
+ 'updater_id': None}
+{'active': True,
+ 'canceled': None,
+ 'child_id': None,
+ 'created': 1652482204,
+ 'creator_id': 3615249,
+ 'disabled': False,
+ 'downtime_type': 0,
+
+## with downtime set to 5 hours
+
+sunny@debby:~/Projects/datadog$ ./schedule_downtime.py home 5
+{'active': True,                
+ 'canceled': None,              
+ 'child_id': None,              
+ 'created': 1652484831
 
 
 
+# Best to run the shell script
+## Run the shell script with parameters , fisrst being the client tag and second optional
+## hours, if none specified then i will default to 4 hours.
 
-
-## Script that worked to create schedule downtime for 2 hrs from now for a given monitpr tag
-sunny@debby:~/Projects/datadog$ cat create_downtime.py
-"""
-Schedule a downtime returns "OK" response
-"""
-
-from datetime import datetime
-from dateutil.relativedelta import relativedelta
-from datadog_api_client.v1 import ApiClient, Configuration
-from datadog_api_client.v1.api.downtimes_api import DowntimesApi
-from datadog_api_client.v1.model.downtime import Downtime
-from datadog_api_client.v1.model.downtime_recurrence import DowntimeRecurrence
-
-body = Downtime(
-    message="Example-Schedule_a_downtime_returns_OK_response",
-    start=int(datetime.now().timestamp()),
-    end=int((datetime.now() + relativedelta(hours=2)).timestamp()),
-    timezone="Pacific/Auckland",
-    scope=[
-        "*",
-    ],
-    monitor_tags=[
-        "project:monitortest",
-    ],
-     #recurrence=DowntimeRecurrence(
-         #type="weeks",
-         #period=1,
-         #until_date=int((datetime.now() + relativedelta(days=21)).timestamp()),
-     #),
-)
-
-configuration = Configuration()
-with ApiClient(configuration) as api_client:
-    api_instance = DowntimesApi(api_client)
-    response = api_instance.create_downtime(body=body)
-
-    print(response)
+sunny@debby:~/Projects/datadog$ ./schedule_downtime.sh home 5                            
+command passed
+sunny@debby:~/Projects/datadog$ ./schedule_downtime.sh home
+command passed
 

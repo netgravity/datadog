@@ -15,3 +15,5 @@ echo "hello dev/test"
 
 sed -i 's/\(hosts: \).*/\1grp2_prd/' ../files/test_ansible.yml
 echo " the new value of ansible playbook hosts is $( grep hosts ../files/test_ansible.yml) "
+
+ansible internal -m ping
