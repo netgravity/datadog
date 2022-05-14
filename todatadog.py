@@ -1,10 +1,15 @@
 #!/usr/bin/env python3
 
 from datadog import initialize, api
+import os
 
+environment_vars = os.environ
+
+
+# source the .env file to load the keys
 options = {
-            "api_key": "883ae4dae7ad2d1b57f46f56652153ec",
-             "app_key": "890a39b62c285b830accffdc17daa2c4e3e1c9ab",
+           "api_key": environment_vars.get("api_key"),
+           "app_key": environment_vars.get("app_key"),
            }
 
 initialize(**options)

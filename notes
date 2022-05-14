@@ -48,4 +48,8 @@ sunny@debby:~/Projects/datadog$ ./schedule_downtime.py home 5
 ## Run the shell script with parameters , fisrst being the client tag and second optional
 ## hours, if none specified then i will default to 4 hours.
 
+sunny@debby:~/Projects/datadog$ ./schedule_downtime.sh home 5                            
+command passed
+sunny@debby:~/Projects/datadog$ ./schedule_downtime.sh home
+command passed
 
