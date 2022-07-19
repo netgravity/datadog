@@ -7,9 +7,9 @@
 # the down time script needs to be run for each env seperately
 
 echo "hello dev/test"
-
+pwd
 # schedule downtime
-./schedule_downtime.sh x1
+./scripts/schedule_downtime.sh x1
 if [[ $? -ne 0 ]]; 
 then
   echo "Datadog downtime failed on x1"
